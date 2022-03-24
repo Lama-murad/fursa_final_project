@@ -32,16 +32,15 @@ db.once("open", () => {
   console.log("connected to DB!");
 });
 
+app.use(express.static("../orgClient/build"));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-})
 
 
 const accidentRouter = require('./routers/accidentRouter');
 app.use('/accidents', accidentRouter);
 const userRouter = require('./routers/userRouter');
 app.use('/users', userRouter);
+
 
 const orgRouter = require('./routers/orgRouter');
 app.use('/org', orgRouter);
@@ -114,3 +113,9 @@ function handleMessage(value: any) {
  
 }
 /* end of saleem */
+
+const path = require('path');
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', "orgClient", 'build', 'index.html'));
+})
