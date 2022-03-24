@@ -64,19 +64,6 @@ function Chat() {
     <div className="chatPage">
       <Navbar />
 
-    <div className="container">
-      <time dateTime={response}>{response}</time>
-      <form onSubmit={submitForm}>
-        <input
-          autoFocus
-          value={value}
-          placeholder="اكتب رسالتك"
-          onChange={(e) => {
-            setValue(e.currentTarget.value);
-          }} />
-      </form>
-    </div>
-
 
       <div className="chatContainer">
         <div className="wrapper">

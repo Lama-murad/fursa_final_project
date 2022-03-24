@@ -2,7 +2,7 @@ import Messages from "./model/messageModel";
 
 const express = require('express');
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
 const nodemailer = require("nodemailer");
 
@@ -31,19 +31,6 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("connected to DB!");
 });
-
-const io = require('socket.io')(http)
-
-io.of('/api/socket').on('connection', socket => {
-    console.log('A user is connected');
-    socket.on('message', ({ name, message }) => {
-        io.emit('message', { name, message })
-    })
-
-    socket.on('disconnect', () => {
-        console.log(`socket ${socket.id} disconnected`);
-    })
-})
 
 
 app.get('/', (req, res) => {
