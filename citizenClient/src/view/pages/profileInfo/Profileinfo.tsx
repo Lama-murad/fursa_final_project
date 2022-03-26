@@ -87,7 +87,6 @@ const Profileinfo = () => {
 
   )
 }
-//
---
+
 
 export default Profileinfo
