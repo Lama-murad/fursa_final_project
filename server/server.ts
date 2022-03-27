@@ -19,7 +19,7 @@ app.use(cookieParser())
 app.use(cors())
 require('dotenv').config();
 
-
+console.log(process.env.ATLAS_NAME)
 
 mongoose.connect(`mongodb+srv://${process.env.ATLAS_NAME}:${process.env.CLUSTER_PASS}@cluster0.qqi5o.mongodb.net/test`, {
   useNewUrlParser: true,
