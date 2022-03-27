@@ -4,13 +4,16 @@ import Navbar from "../../components/navbar/navbar";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import "./Chat.scss";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
+import {getID} from '../../../app/reducer/userReducer'
 
-const ENDPOINT = "http://localhost:3001/";
+
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 function Chat() {
   const chatRoomId = useParams().chatId;
-
+  const userId = useAppSelector(getID);
+console.log('saaaaa', userId)
   /* previose page should pass
   accedent id,orgid
 
@@ -29,7 +32,7 @@ function Chat() {
     accidentId: String;
     orgId: String;
   }
-  let userId = "2";
+ 
   let orgId = "3";
 
   const [messages, setMessages] = useState({});
@@ -37,20 +40,17 @@ function Chat() {
   useEffect(() => {
     socket = socketIOClient();
     socket.on("connect", () => {
-      console.log("connecting?");
+      console.log("connecting?",userId,'dd');
+      //before join room, tell other that he joined
+      socket.emit('enter chat',{userId, orgId})
       socket.emit("join room", chatRoomId);
-    });
-   
 
-    /* will be replace with chat box*/
-    // socket.on("FromAPI", (data: React.SetStateAction<string>) => {
-    //   //setResponse(data);
-    //   setMessages(data);
-    // });
-    /* set user id */
-    // socket.emit("setUserData", userId);
-    /* set user id */
-    // socket.emit("setOrgData", orgId);
+    });
+
+    socket.on('message',msg=>{
+      console.log(msg) // -->add to messages on DOM
+    })
+    //get previous messages
 
     //TODO: leave room
   }, []);
@@ -60,6 +60,7 @@ function Chat() {
 
     const submitForm = (e: any) => {
       e.preventDefault();
+      console.log(value)
       socket.emit("message", {
         from: userId,
         date: new Date().toLocaleString() + "",
@@ -103,6 +104,7 @@ function Chat() {
                 setValue(e.currentTarget.value);
               }}
             />
+            <input type='submit' value='send'></input>
           </form>
         </div>
       </div>

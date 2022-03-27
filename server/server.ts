@@ -1,3 +1,4 @@
+import { getAllJSDocTagsOfKind } from "typescript";
 import Messages from "./model/messageModel";
 
 const express = require("express");
@@ -94,6 +95,24 @@ io.on("connection", (socket) => {
     console.log("org id is " + userData);
     orgId = userData;
   });
+
+  async function handleMessage(value: any) {
+    console.log(value.message);
+    socket.emit('message', value);
+   
+    const message = new Messages(value);
+
+    await message.save(function (err, Messages) {
+      if (err) return console.error(err);
+      console.log("message saved to users collection.");
+    });
+
+    //save last message to collection chatrooms, with org ID
+
+    // 2nd task, to let organization, chat with the user 
+    console.log(value);
+    
+  }
 });
 
 const getApiAndEmit = async (socket) => {
@@ -109,16 +128,7 @@ const getApiAndEmit = async (socket) => {
   socket.emit("FromAPI", messagesPreview);
 };
 
-function handleMessage(value: any) {
-  console.log(value.from);
 
-  const message = new Messages(value);
-  message.save(function (err, Messages) {
-    if (err) return console.error(err);
-    console.log("message saved to users collection.");
-  });
-  console.log(value);
-}
 /* end of saleem */
 // app.use(express.static("../public/citizen"));
 // app.use(express.static('../public/org'))
