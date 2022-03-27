@@ -74,7 +74,6 @@ export const logOutUser = createAsyncThunk(
     'user/logout',
     async () => {
         try {
-            console.log("hi")
             const response = await axios.get('/users/log-out');
             return response.data
         }

@@ -3,30 +3,36 @@ const router = express.Router();
 import jwt from "jwt-simple";
 import Users from '../model/userModel'
 import { isUser } from '../controllers/userController'
+const bcrypt = require("bcrypt");
 
 router.post("/get-user", async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!password || !email) throw ' invalid fields'
-        const _user = await Users.findOne({ email: email, password: password }, 'name email phone location gender type');
+        const _user = await Users.findOne({ email: email }, 'name password email phone location gender type');
         if (_user) {
-            const JWT_SECRET = process.env.JWT_SECRET;
-            const encodedJWT = jwt.encode(
-                { userId: _user._id, role: _user.type },
-                JWT_SECRET
-            );
-            if (_user.type == "admin" || _user.type == "org") {
-                res.cookie('user', encodedJWT, {
-                    httpOnly: true,
-                    maxAge: 24 * 60 * 60 * 1000,
-                })
-            } else {
-                res.cookie('user', encodedJWT, {
-                    httpOnly: true,
-                })
+            const validPassword = await bcrypt.compare(password, _user.password);
+            if (validPassword) {
+                const JWT_SECRET = process.env.JWT_SECRET;
+                const encodedJWT = jwt.encode(
+                    { userId: _user._id, role: _user.type },
+                    JWT_SECRET
+                );
+                if (_user.type == "admin" || _user.type == "org") {
+                    res.cookie('user', encodedJWT, {
+                        httpOnly: true,
+                        maxAge: 24 * 60 * 60 * 1000,
+                    })
+                } else {
+                    res.cookie('user', encodedJWT, {
+                        httpOnly: true,
+                    })
+                }
+                res.send({ ok: true, user: _user })
             }
-            res.send({ ok: true, user: _user })
-
+            else {
+                res.send({ ok: false, message: "wrong email or password!" });
+            }
         }
         else {
             res.send({ ok: false })
@@ -44,7 +50,11 @@ router.post('/sign-up', async (req, res) => {
         if (result.length > 0)
             res.send({ "log": false })
         else {
+            // crypt pass
             const user = new Users({ "name": name, "email": email, "gender": gender, "phone": phone, "location": location, "password": password, "type": "public" })
+            const salt = await bcrypt.genSalt(10);
+            // now we set user password to hashed password
+            user.password = await bcrypt.hash(user.password, salt)
             await user.save()
             const JWT_SECRET = process.env.JWT_SECRET;
             const encodedJWT = jwt.encode(
