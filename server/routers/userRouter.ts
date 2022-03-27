@@ -62,6 +62,8 @@ router.get('/get-authentication', async (req, res) => {
         const { user } = req.cookies;
         if (user) {
             const JWT_SECRET = process.env.JWT_SECRET;
+
+            console.log('JWT_SECRET:',JWT_SECRET)
             const decodedJWT = jwt.decode(user, JWT_SECRET);
             const { userId } = decodedJWT;
             if (userId) {
@@ -74,6 +76,7 @@ router.get('/get-authentication', async (req, res) => {
         }
         else {
             const JWT_SECRET = process.env.JWT_SECRET;
+            console.log('JWT_SECRET:',JWT_SECRET)
             //add to db
             const newUser = new Users({ "type": "anonymous", "email": Date.now().toString() })
             const result = await newUser.save()
@@ -87,7 +90,8 @@ router.get('/get-authentication', async (req, res) => {
             res.send({ "log": true, "user": result })
         }
     } catch (error) {
-        res.send({ error });
+        console.log(error.message)
+        res.send({ error:error.message });
     }
 })
 
