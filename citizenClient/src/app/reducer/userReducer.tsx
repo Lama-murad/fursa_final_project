@@ -63,7 +63,8 @@ export const authenticate = createAsyncThunk(
     'user/authenticate',
     async () => {
         try {
-            const response = await axios.get('/users/get-authentication')
+            const response = await axios.get('/users/get-authentication');
+            console.log(response)
             return response.data
         }
         catch (err: any) {
@@ -85,7 +86,7 @@ export const userReducer = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
-                if (action.payload.ok == true) {
+                if (action.payload.ok === true) {
                     state.status = 'idle';
                     state.userInfo = action.payload.user;
                     state.isLogIn = true;
@@ -95,7 +96,7 @@ export const userReducer = createSlice({
                 state.status = 'loading';
             })
             .addCase(signUpUser.fulfilled, (state, action) => {
-                if (action.payload.log == true) {
+                if (action.payload.log === true) {
                     state.status = 'idle';
                     state.userInfo = action.payload.user;
                     state.isLogIn = true;
@@ -105,10 +106,10 @@ export const userReducer = createSlice({
                 state.status = 'loading';
             })
             .addCase(authenticate.fulfilled, (state, action) => {
-                if (action.payload.log == true) {
+                if (action.payload.log === true) {
                     state.status = 'idle';
                     state.userInfo = action.payload.user;
-                    if (action.payload.user.type != "anonymous")
+                    if (action.payload.user.type !== "anonymous")
                         state.isLogIn = true;
                     else state.isLogIn = false;
                 }

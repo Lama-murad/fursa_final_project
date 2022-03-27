@@ -29,7 +29,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/stories" element={<Stories />} />
         <Route path="/info" element={<About />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:chatId" element={<Chat />} />
         <Route path="/emergency/:accidentName" element={<Emergency />}></Route>
         <Route path="/previousAccidents" element={<PreviousAccident />} />
         <Route path="/chatRoams" element={<ChatRooms />} />

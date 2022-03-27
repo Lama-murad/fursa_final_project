@@ -1,9 +1,15 @@
 import { Button, MenuItem, TextField } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { fetchUser, getloginState, getName, userInfo } from "../../../app/reducer/userReducer";
+import {
+  fetchUser,
+  getloginState,
+  
+  getID,
+  userInfo,
+} from "../../../app/reducer/userReducer";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import ChatIcon from "@mui/icons-material/Chat";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -14,12 +20,15 @@ export function Emergency() {
   const [images, setImage] = useState<Array<any>>([]);
   const [isAmergency, setIsAmergency] = useState(false);
   const [upload, setUpload] = useState(false);
-  const [{ imageUrl, imagetype }, setImageUrl] = useState({ imageUrl: '', imagetype: '' });
+  const [{ imageUrl, imagetype }, setImageUrl] = useState({
+    imageUrl: "",
+    imagetype: "",
+  });
   const dispatch = useAppDispatch();
   const user = useAppSelector(userInfo);
   const org = {};
   const { accidentName } = useParams();
-  let isLogged = useAppSelector(getloginState)
+  let isLogged = useAppSelector(getloginState);
   const navigate = useNavigate();
 
   const accidentType = [
@@ -66,13 +75,15 @@ export function Emergency() {
     const formData = new FormData();
     formData.append("file", images[0]);
     formData.append("api_key", "327772261325556");
-    formData.append('upload_preset', 'tfv02nzm');
+    formData.append("upload_preset", "tfv02nzm");
     formData.append("public_id", "sample_image2");
     formData.append("timestamp", `${new Date().getTime()}`);
 
-    const { data } = await axios.post('https://api.cloudinary.com/v1_1/dqzgolqdg/image/upload', formData);
-    setImageUrl(data.secure_url)
-
+    const { data } = await axios.post(
+      "https://api.cloudinary.com/v1_1/dqzgolqdg/image/upload",
+      formData
+    );
+    setImageUrl(data.secure_url);
 
     //fetch media
     axios
@@ -136,19 +147,20 @@ export function Emergency() {
               تحميل الصورة
             </Button>
           )}
-          <Button
-            startIcon={<ChatIcon></ChatIcon>}
-            style={{ borderColor: "green", color: "green" }}
-            variant="outlined">
-            الدردشه{" "}
-          </Button>
-
+          <Link to={`/chat/${user._id}-famely`}>
+            <Button
+              startIcon={<ChatIcon></ChatIcon>}
+              style={{ borderColor: "green", color: "green" }}
+              variant="outlined">
+              الدردشه{" "}
+            </Button>
+          </Link>
           <Button
             startIcon={<CampaignIcon></CampaignIcon>}
             type="submit"
             style={{ borderColor: "red", color: "red" }}
             variant="outlined">
-            تقرير عن حادث {" "}
+            تقرير عن حادث{" "}
           </Button>
         </form>
       </div>
