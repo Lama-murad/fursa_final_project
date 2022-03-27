@@ -147,7 +147,7 @@ export function Emergency() {
               تحميل الصورة
             </Button>
           )}
-          <Link to={`/chat:${user._id}-famely`}>
+          <Link to={`/chat/${user._id}-famely`}>
             <Button
               startIcon={<ChatIcon></ChatIcon>}
               style={{ borderColor: "green", color: "green" }}
