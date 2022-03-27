@@ -28,7 +28,7 @@ router.post("/get-user", async (req, res) => {
                         httpOnly: true,
                     })
                 }
-                res.send({ ok: true, user: _user })
+                res.send({ ok: true, user: { "name": _user.name, "email": _user.email, "gender": _user.gender, "phone": _user.phone, "location": _user.location, "type": _user.type } })
             }
             else {
                 res.send({ ok: false, message: "wrong email or password!" });
