@@ -50,11 +50,11 @@ app.use('/messagesBetweemOrg', messagesBetweemOrgRouter);
 
 const path = require('path');
 app.use('/orgCLI', express.static(path.join(__dirname, '..', 'public', 'org')));
-app.use(express.static(path.join(__dirname, '..', 'public', 'citizen')));
+app.use('/', express.static(path.join(__dirname, '..', 'public', 'citizen')));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', "public", 'citizen', 'index.html'));
-})
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', "public", 'citizen', 'index.html'));
+// })
 
 server.listen(port, () => {
   console.log(`Listening on port ${port} 🔥`)
