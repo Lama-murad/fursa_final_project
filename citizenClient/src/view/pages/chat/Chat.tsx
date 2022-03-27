@@ -68,13 +68,14 @@ function Chat() {
         <div className="wrapper">
           {Object.entries(messages).map(function (val: any, index) {
             const new_message: messageFormat = val["1"];
+            // eslint-disable-next-line no-lone-blocks
             {
-
-              if (new_message.from == userId)
-                return <div className="you message">{new_message.message}</div>
+              if (new_message.from === userId)
+                return <div className="you message">{new_message.message}</div>;
               else
-                return <div className="them message">{new_message.message}</div>
-
+                return (
+                  <div className="them message">{new_message.message}</div>
+                );
             }
           })}
         </div>
@@ -87,7 +88,6 @@ function Chat() {
               setValue(e.currentTarget.value);
             }}
           />
-
         </form>
       </div>
     </div>
