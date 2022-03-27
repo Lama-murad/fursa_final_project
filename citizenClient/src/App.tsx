@@ -14,7 +14,8 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
 import { authenticate } from "./app/reducer/userReducer";
 import ChatRooms from './view/pages/chatRoams/chatRooms'
-
+import Profileinfo from "./view/pages/profileInfo/Profileinfo";
+import Report from "./view/pages/report/Report"; 
 function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -27,6 +28,8 @@ function App() {
         <Route path="/" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />}></Route>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profileinfo" element={<Profileinfo />} />
+        <Route path="/Report" element={<Report />} />
         <Route path="/stories" element={<Stories />} />
         <Route path="/info" element={<About />} />
         <Route path="/chat" element={<Chat />} />

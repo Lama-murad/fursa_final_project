@@ -32,10 +32,6 @@ db.once("open", () => {
   console.log("connected to DB!");
 });
 
-app.use(express.static("../orgClient/build"));
-
-
-
 const accidentRouter = require('./routers/accidentRouter');
 app.use('/accidents', accidentRouter);
 const userRouter = require('./routers/userRouter');
@@ -51,6 +47,14 @@ app.use('/previousAccidents', previousAccidentRouter);
 
 const messagesBetweemOrgRouter = require('./routers/messagesBetweemOrgRouter');
 app.use('/messagesBetweemOrg', messagesBetweemOrgRouter);
+
+const path = require('path');
+app.use('/orgCLI', express.static(path.join(__dirname, '..', 'public', 'org')));
+app.use(express.static(path.join(__dirname, '..', 'public', 'citizen')));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', "public", 'citizen', 'index.html'));
+})
 
 server.listen(port, () => {
   console.log(`Listening on port ${port} 🔥`)
@@ -92,8 +96,8 @@ io.on("connection", (socket) => {
 });
 
 const getApiAndEmit = async socket => {
-  const messagesPreview = await Messages.find( { $or: [{from:userId,to:orgId},{to:userId,from:orgId}]}).sort({date:1})
-  console.log("check",userId,orgId,messagesPreview)
+  const messagesPreview = await Messages.find({ $or: [{ from: userId, to: orgId }, { to: userId, from: orgId }] }).sort({ date: 1 })
+  console.log("check", userId, orgId, messagesPreview)
   const response = new Date();
   // Emitting a new message. Will be consumed by the client
   socket.emit("FromAPI", messagesPreview);
@@ -101,7 +105,7 @@ const getApiAndEmit = async socket => {
 
 
 function handleMessage(value: any) {
-  
+
   console.log(value.from)
 
   const message = new Messages(value)
@@ -110,12 +114,16 @@ function handleMessage(value: any) {
     console.log("message saved to users collection.");
   });
   console.log(value);
- 
+
 }
 /* end of saleem */
+// app.use(express.static("../public/citizen"));
+// app.use(express.static('../public/org'))
 
-const path = require('path');
+// app.get('/orgCLI/*', (req, res) => {
+//   console.log("cli")
+//   // app.use(express.static(path.join(__dirname, '..', 'public', 'org')));
+//   res.sendFile(path.join(__dirname, '..', "public", 'org', 'index.html'));
+// })
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', "orgClient", 'build', 'index.html'));
-})
+
