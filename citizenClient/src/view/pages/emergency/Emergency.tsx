@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   fetchUser,
   getloginState,
-  
+
   getID,
   userInfo,
 } from "../../../app/reducer/userReducer";
@@ -16,6 +16,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import "./Emergency.scss";
 import Box from '@mui/material/Box';
 import { ButtonGroup } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 
 export function Emergency() {
@@ -108,80 +109,66 @@ export function Emergency() {
   }
   return (
     <div className="accident">
-      <div className="accident_header">
-        <h1>Accident</h1>
-      </div>
+
+      <h3 className='headingInfo'> report accident <ChevronLeftIcon sx={{ fontSize: 30 }} /></h3>
+
       <div className="accident_body">
         <form onSubmit={newAccidentHandler}>
-          <TextField
-            style={{ width: "50%", borderColor: "eb655", color: "#eb655b" }}
-            select
-            name="type"
-            label="اختار صنف الحدث"
-            value={type}
-            onChange={handleChange}>
-            {accidentType.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <input
-            style={{ borderColor: "#eb655", color: "#eb655b" }}
-            type="location"
-            placeholder="add location"
-            name="location"></input>
-          <input
-            style={{ borderColor: "#eb655", color: "#eb655b" }}
-            type="text"
-            placeholder="accident description"
-            name="description"></input>
-          {upload ? (
-            <input
-              style={{ borderColor: "#eb655", color: "#eb655b" }}
-              type="file"
-              onChange={selectfileHandler}></input>
-          ) : (
-            <Button
-              startIcon={<UploadIcon></UploadIcon>}
-              onClick={handleUpload}
-              style={{ borderColor: "blue", color: "blue" }}
-              variant="outlined">
-              تحميل الصورة
-            </Button>
-          )}
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '15ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              style={{ width: "100%", borderColor: "eb655", color: "#eb655b" }}
+              select
+              name="type"
+              label="اختار نوع الحدث"
+              value={type}
+              onChange={handleChange}>
+              {accidentType.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              name="location"
+              id="standard-size-normal"
+              defaultValue="موقع"
+              variant="standard"
+            />
+            <TextField
+              name="description"
+              id="standard-size-normal"
+              defaultValue="وصف الحالة"
+              variant="standard"
 
+            />
+            {upload ? (
+              <input
+                style={{ borderColor: "#eb655", color: "#eb655b" }}
+                type="file"
+                onChange={selectfileHandler}></input>
+            ) : (
+              <Button
+                startIcon={<UploadIcon></UploadIcon>}
+                onClick={handleUpload}
+                style={{ width: "100%", borderColor: "black", color: "black" }}
+                variant="outlined">
+                تحميل الصورة
+              </Button>
+            )}
+          </Box>
 
-
-          <Link to={`/chat/${user._id}-famely`}>
           <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
 
-<Button  className='chatInfo'>الدردشة</Button>
-</ButtonGroup>
-<Box
-      sx={{
-        '& > :not(style)': {
-          m: 2,
-        },
-      }}
-    >
-    </Box> 
-          </Link>
-          
-<ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+            <Button className='reportInfo' style={{ width: "100%" }}>تقديم تقرير </Button>
+          </ButtonGroup>
 
-<Button  className='chatInfo'>تقرير  </Button>
-</ButtonGroup>
-<Box
-      sx={{
-        '& > :not(style)': {
-          m: 2,
-        },
-      }}
-    >
-    </Box> 
-           
-          
         </form>
       </div>
     </div>

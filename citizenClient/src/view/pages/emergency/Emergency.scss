@@ -1,37 +1,81 @@
-.accident{
+// .accident{
 
-    &_header{
+//     &_header{
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+
+//     }
+//     &_body{
+//         form{
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         justify-content: center;
+//         font-size: 2rem;
+//        Button{
+//            margin: 5px;
+//            width: 50%;
+//        }
+//        input{
+//            margin: 5px;
+//            width:50%;
+//        }
+
+
+//     }
+//             }
+
+// }
+// .buttonGroup{
+//     background-color: #8CBB46 !important;
+//     padding-left: 50px !important;
+//     padding-right: 30px !important;
+//     margin-top: 30px !important;
+//     color: #fff !important;
+//     font-size: 15px !important;
+// }
+.accident {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10rem;
+
+    .headingInfo {
+        margin-right: 40px;
         display: flex;
-        align-items: center;
-        justify-content: center;
-      
+        flex-direction: row;
+        gap: 1rem;
     }
-    &_body{
-        form{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-       Button{
-           margin: 5px;
-           width: 50%;
-       }
-       input{
-           margin: 5px;
-           width:50%;
-       }
-      
-       
-    }
+
+    &_body {
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            gap: 10px;
+            
+            Button {
+                margin: 13px;
+                width: 40%;
             }
- 
+        }
+    }
 }
-.buttonGroup{
+
+.reportInfo {
     background-color: #8CBB46 !important;
     padding-left: 50px !important;
-    padding-right: 30px !important;
-    margin-top: 30px !important;
+    padding-right: 50px !important;
+    margin-top: 25px !important;
+    margin-right: 20px !important;
     color: #fff !important;
     font-size: 15px !important;
+}
+
+.buttonGroup {
+    background-color: transparent !important;
 }
