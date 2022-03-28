@@ -4,9 +4,15 @@
 .login {
   font-family: 'Comfortaa', cursive;
   display: flex;
+  padding-top: 50px;
   flex-direction: column;
+
   align-items: center;
 
+
+Button{
+  background: #8CBB46;
+}
   &__main {
     display: flex;
     flex-direction: column;
@@ -29,7 +35,7 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #8CBB46;
   border-radius: 10px;
   max-width: 360px;
   margin: 0 auto 100px;
@@ -51,14 +57,14 @@
 }
 
 .form input:focus {
-  background: #dbdbdb;
+  background: #39914f;
 }
 
 .form button {
   font-family: 'Comfortaa', cursive;
   text-transform: uppercase;
   outline: 0;
-  background: #4b6cb7;
+  background: #54b74b;
   width: 100%;
   border: 0;
   border-radius: 5px;
@@ -70,11 +76,11 @@
   cursor: pointer;
 }
 
-.form button:active {
-  background: #395591;
+.form Button:active {
+  background: #39914f;
 }
 
 .form span {
   font-size: 75px;
-  color: #4b6cb7;
+  color: #39914f;
 }

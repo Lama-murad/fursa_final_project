@@ -11,6 +11,11 @@ import { Backdrop, Link } from "@mui/material";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
+
+
+
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -58,16 +63,30 @@ function LogIn() {
   return (
     <div className="login">
       <Navbar></Navbar>
+  
       <div className="login__main">
-        <h1> تسجيل الدخول </h1>
+         <Avatar sx={{ m: 1, mr:5,bgcolor: '#8CBB46' }}>
+            <LockOutlinedIcon />
+          </Avatar>
         <form onSubmit={hadleSubmit}>
-          <TextField required name="email" label="Email" variant="standard" onChange={(e: any) => setEmail(e.target.value)} />
+                    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+          <TextField  id="outlined-required" name="email" label="Email" variant="standard" onChange={(e: any) => setEmail(e.target.value)} />
           <TextField required name="password" label="Password" variant="standard" type="password" onChange={(e: any) => setPassword(e.target.value)} />
+                </Box>
           <div className="login__main__remember">
             <input type="checkbox" id="remember" value="remember" />
             <span>تذكرني  </span>
+          
           </div>
-         
+          <br>
+  </br>
       <Button onClick={handleOpen}>نسيت كلمة المرور</Button>
       <Modal
         open={open}
@@ -88,11 +107,13 @@ function LogIn() {
       </Typography>
         </Box>
       </Modal>
-          <Button variant="contained" style={{ marginTop: '1rem' }} type="submit">تسجيل الدخول</Button>
+          <Button className="greenButton" style={{ marginTop: '1rem' }} type="submit">تسجيل الدخول</Button>
           { }
         </form>
+   
       </div>
     </div>
+     
   );
 }
 export default LogIn;
