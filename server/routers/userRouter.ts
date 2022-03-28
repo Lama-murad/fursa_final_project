@@ -47,8 +47,9 @@ router.post('/sign-up', async (req, res) => {
         const { name, email, phone, location, password, gender } = req.body;
         if (!name || !gender || !email || !phone || !location || !password) throw "invalid fields"
         const result = await Users.find({ email: email });
+
         if (result.length > 0)
-            res.send({ "log": false })
+         res.send({ "log": false })
         else {
             // crypt pass
             const user = new Users({ "name": name, "email": email, "gender": gender, "phone": phone, "location": location, "password": password, "type": "public" })
@@ -126,6 +127,27 @@ router.get('/log-out', isUser, async (req, res) => {
         httpOnly: true,
     })
     res.send({ "log": true, "user": result })
+})
+router.patch("/update-user-password", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!password || !email) throw ' invalid fields'
+        const _user = await Users.findOne({ email: email });
+        console.log(_user)
+        if (_user) {
+            const filter={email:email};
+            const update={password:password};
+           
+            let doc = await Users.findOneAndUpdate(filter, update);
+            res.send({ ok: true, doc });
+
+        }
+        else {
+            res.send({ ok: false })
+        }
+    } catch (error) {
+        res.send({ error: error.message });
+    }
 })
 
 module.exports = router;
