@@ -10,7 +10,6 @@ export const OrgSchema = new mongoose.Schema({
     webUrl : String || undefined,
     accidentType : String , // the type that the organization help in . 
     // in the accident we must add the organization . 
-    
 })
 
 const Organizations = mongoose.model('organization', OrgSchema);

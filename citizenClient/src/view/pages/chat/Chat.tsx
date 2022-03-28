@@ -5,15 +5,21 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import "./Chat.scss";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
-import {getID} from '../../../app/reducer/userReducer'
+import { getID } from '../../../app/reducer/userReducer'
 
 
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+function generateQuickGuid() {
+  return Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+}
+const accidentId = generateQuickGuid();
+// const accidentId = '6228cd3a3675e59778e0e7ea';
 
 function Chat() {
   const chatRoomId = useParams().chatId;
   const userId = useAppSelector(getID);
-console.log('saaaaa', userId)
+  console.log('saaaaa', userId)
   /* previose page should pass
   accedent id,orgid
 
@@ -32,7 +38,7 @@ console.log('saaaaa', userId)
     accidentId: String;
     orgId: String;
   }
- 
+
   let orgId = "3";
 
   const [messages, setMessages] = useState({});
@@ -40,14 +46,13 @@ console.log('saaaaa', userId)
   useEffect(() => {
     socket = socketIOClient();
     socket.on("connect", () => {
-      console.log("connecting?",userId,'dd');
+      console.log("connecting?", userId, 'dd');
       //before join room, tell other that he joined
-      socket.emit('enter chat',{userId, orgId})
+      socket.emit('enter chat', { userId, orgId })
       socket.emit("join room", chatRoomId);
-
     });
 
-    socket.on('message',msg=>{
+    socket.on('message', msg => {
       console.log(msg) // -->add to messages on DOM
     })
     //get previous messages
@@ -71,6 +76,7 @@ console.log('saaaaa', userId)
         location: { lat: "", lng: "" },
         communicationType: "user",
         orgId: orgId,
+        accidentId: accidentId
       });
       setValue("");
     };

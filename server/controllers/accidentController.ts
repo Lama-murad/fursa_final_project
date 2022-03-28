@@ -63,6 +63,8 @@ exports.addNewAccident = async (req, res) => {
     user,
     org,
   } = req.body;
+
+  console.log(`media ${media}`)
   /*
         type: String,
         emergency : Boolean || null,

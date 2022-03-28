@@ -12,7 +12,7 @@ export const AccidentSchema = new mongoose.Schema({
     emergency: Boolean || null,
     date: String,
     address: String,
-    media: [MediaSchema],
+    media: [MediaSchema] || undefined,
     // call: Object, //we dont know yet
     description: String,
     user: UserSchema,

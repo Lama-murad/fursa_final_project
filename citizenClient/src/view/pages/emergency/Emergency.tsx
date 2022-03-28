@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   fetchUser,
   getloginState,
-  
+
   getID,
   userInfo,
 } from "../../../app/reducer/userReducer";
@@ -27,6 +27,7 @@ export function Emergency() {
     imageUrl: "",
     imagetype: "",
   });
+  const [showChat, setShowChat] = useState(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector(userInfo);
   const org = {};
@@ -86,11 +87,12 @@ export function Emergency() {
       "https://api.cloudinary.com/v1_1/dqzgolqdg/image/upload",
       formData
     );
+    console.log(data.secure_url)
     setImageUrl(data.secure_url);
 
     //fetch media
     axios
-      .post("http://localhost:3001/accidents/addNewAccident", {
+      .post("/accidents/addNewAccident", {
         type: ev.target.elements.type.value,
         emergency: isAmergency,
         date: new Date(),
@@ -100,7 +102,10 @@ export function Emergency() {
         user: user,
         org: {},
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        setShowChat(true);
+      })
       .catch((err) => console.error(err));
   }
   function handleUpload() {
@@ -152,36 +157,37 @@ export function Emergency() {
           )}
 
 
+          {showChat ?
+            <Link to={`/chat/${user._id}-3`}>
+              <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
 
-          <Link to={`/chat/${user._id}-famely`}>
+                <Button className='chatInfo'>الدردشة</Button>
+              </ButtonGroup>
+              <Box
+                sx={{
+                  '& > :not(style)': {
+                    m: 2,
+                  },
+                }}
+              >
+              </Box>
+            </Link>
+            : null}
+
           <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
 
-<Button  className='chatInfo'>الدردشة</Button>
-</ButtonGroup>
-<Box
-      sx={{
-        '& > :not(style)': {
-          m: 2,
-        },
-      }}
-    >
-    </Box> 
-          </Link>
-          
-<ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+            <Button type="submit" className='chatInfo'>تقرير  </Button>
+          </ButtonGroup>
+          <Box
+            sx={{
+              '& > :not(style)': {
+                m: 2,
+              },
+            }}
+          >
+          </Box>
 
-<Button  className='chatInfo'>تقرير  </Button>
-</ButtonGroup>
-<Box
-      sx={{
-        '& > :not(style)': {
-          m: 2,
-        },
-      }}
-    >
-    </Box> 
-           
-          
+
         </form>
       </div>
     </div>

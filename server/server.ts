@@ -71,11 +71,11 @@ let userId;
 let orgId;
 io.on("connection", (socket) => {
   console.log("new client join socket");
- 
- 
+
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
-   
+
   });
 
   socket.on("join room", (roomId) => {
@@ -96,10 +96,15 @@ io.on("connection", (socket) => {
     orgId = userData;
   });
 
+  /**
+   * 
+   * io.sockets.in(msgObj.roomId).emit("chat room message", msgObj.msg);
+   */
+
   async function handleMessage(value: any) {
     console.log(value.message);
     socket.emit('message', value);
-   
+
     const message = new Messages(value);
 
     await message.save(function (err, Messages) {
@@ -111,7 +116,8 @@ io.on("connection", (socket) => {
 
     // 2nd task, to let organization, chat with the user 
     console.log(value);
-    
+    io.sockets.in(`${'3-accidents'}`).emit("message", value);
+    io.sockets.in(`${value.from}-${'3'}`).emit("message", value);
   }
 });
 

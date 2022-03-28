@@ -14,24 +14,26 @@ import AccidentsInfo from './view/pages/accidentsInfo/AccidentsInfo';
 import Login from './view/pages/logIn/LogIn';
 import AccidenstByLocation from './view/pages/accidentsByLocation/accidentsByLocation';
 import SignUp from './view/pages/signUp/signUp';
+import Chat from './view/pages/chat/Chat';
 
 
 ReactDOM.render(
   // <React.StrictMode>
-  
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/accidents' element={<Accident />} />
-          <Route path="/accidentsByLocation" element={<AccidenstByLocation />} />
-          <Route path="/:accidentId/profileInfo" element={<ProfileInfo />} />
-          <Route path="/:accidentId" element={<AccidentsInfo />} />
-          <Route path="/messagesBetweenOrg" element={<MessagesBetweenOrg />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>,
+
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/chat' element={<Chat />} />
+        <Route path='/' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/accidents' element={<Accident />} />
+        <Route path="/accidentsByLocation" element={<AccidenstByLocation />} />
+        <Route path="/:accidentId/profileInfo" element={<ProfileInfo />} />
+        <Route path="/:accidentId" element={<AccidentsInfo />} />
+        <Route path="/messagesBetweenOrg" element={<MessagesBetweenOrg />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
   // </React.StrictMode>,
   document.getElementById('root')
 );
