@@ -14,6 +14,9 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import ChatIcon from "@mui/icons-material/Chat";
 import UploadIcon from "@mui/icons-material/Upload";
 import "./Emergency.scss";
+import Box from '@mui/material/Box';
+import { ButtonGroup } from '@mui/material';
+
 
 export function Emergency() {
   const [type, setType] = useState("harassment");
@@ -147,21 +150,38 @@ export function Emergency() {
               تحميل الصورة
             </Button>
           )}
+
+
+
           <Link to={`/chat/${user._id}-famely`}>
-            <Button
-              startIcon={<ChatIcon></ChatIcon>}
-              style={{ borderColor: "green", color: "green" }}
-              variant="outlined">
-              الدردشه{" "}
-            </Button>
+          <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+
+<Button  className='chatInfo'>الدردشة</Button>
+</ButtonGroup>
+<Box
+      sx={{
+        '& > :not(style)': {
+          m: 2,
+        },
+      }}
+    >
+    </Box> 
           </Link>
-          <Button
-            startIcon={<CampaignIcon></CampaignIcon>}
-            type="submit"
-            style={{ borderColor: "red", color: "red" }}
-            variant="outlined">
-            تقرير عن حادث{" "}
-          </Button>
+          
+<ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+
+<Button  className='chatInfo'>تقرير  </Button>
+</ButtonGroup>
+<Box
+      sx={{
+        '& > :not(style)': {
+          m: 2,
+        },
+      }}
+    >
+    </Box> 
+           
+          
         </form>
       </div>
     </div>

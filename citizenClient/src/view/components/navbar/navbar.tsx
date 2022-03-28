@@ -12,15 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../../../app/hooks';
-import { getloginState, getRole } from '../../../app/reducer/userReducer';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { getloginState, getRole, logOutUser } from '../../../app/reducer/userReducer';
 import './navbar.scss'
 
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const isLoggedIn = useAppSelector(getloginState)
+    const dispatch = useAppDispatch()
     const userRole = useAppSelector(getRole)
     const pages = ['Home', 'Info', 'Stories', 'Chat'];
     const navigate = useNavigate();
@@ -40,20 +40,14 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
+    const handleLogOut = () => {
+        setAnchorElUser(null);
+        dispatch(logOutUser())
+    }
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                    >
-                        LOGO
-                    </Typography>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -154,7 +148,7 @@ function Navbar() {
                             </Link>
                             {userRole != "anonymous" ? (
                                 <Link to="/">
-                                    <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                                    <MenuItem key="logout" onClick={handleLogOut}>
                                         <Typography textAlign="center">تسجيل الخروج</Typography>
                                     </MenuItem>
                                 </Link>) : (<div></div>)

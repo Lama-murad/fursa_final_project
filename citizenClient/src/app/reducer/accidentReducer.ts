@@ -35,7 +35,7 @@ export const addAccident = createAsyncThunk(
     'accident/addAccident',
     async (accident: any) => {
         try {
-            const response = await axios.post('http://localhost:3001/accidents/addNewAccident', { accident })
+            const response = await axios.post('/accidents/addNewAccident', { accident })
             return response.data;
         }
         catch (err: any) {
@@ -50,7 +50,7 @@ export const fetchPreviousAccident = createAsyncThunk(
     async (userEmail: any) => {
         try {
             const { email } = userEmail
-            const response = await axios.post('http://localhost:3001/previousAccidents/getPreviousAccidents', { "email": email })
+            const response = await axios.post('previousAccidents/getPreviousAccidents', { "email": email })
             return response.data;
         }
         catch (err: any) {

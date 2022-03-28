@@ -9,6 +9,14 @@ import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import { Accordion, AccordionDetails, AccordionSummary, TextField, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+import { ButtonGroup } from '@mui/material';
+
+import LaptopIcon from '@mui/icons-material/Laptop';
+import MessageIcon from '@mui/icons-material/Message';
+import PersonIcon from '@mui/icons-material/Person';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+
 
 function Profile() {
     const userName = useAppSelector(getName)
@@ -35,14 +43,68 @@ function Profile() {
 
     return (
         <div className="profile__main">
-            <Navbar></Navbar>
-            <div className="profile__main__photo">
-                <img src="https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg"></img>
-            </div>
-            <div className="profile__main__title">
-                {gender}
-                <h3>{userName}</h3>
-            </div>
+   
+        <div>
+          <h3 className='headingInfo'>الملف الشخصى</h3>
+                <div className="profile__main__photo">
+                    <img src="https://previews.123rf.com/images/metelsky/metelsky1809/metelsky180900233/109815470-man-avatar-profile-male-face-icon-vector-illustration-.jpg"></img>
+                </div>
+                <h4 className='headingInfo'>اسم المستخدم</h4>
+    
+        </div>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <div>
+            <TextField
+              label="my info"
+              id="outlined-size-small"
+              defaultValue="معلومات"
+              size="small"
+            />
+            
+          </div>
+          <div>
+            <TextField
+              label="email"
+              id="outlined-size-small"
+              defaultValue="الايميل"
+              size="small"
+            />
+            
+          </div>
+          <div>
+            <TextField
+              label="city"
+              id="outlined-size-small"
+              defaultValue="المدينة"
+              size="small"
+             
+            />
+            
+          </div>
+        </Box>
+    
+    
+        <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+      <Button  className='chatInfo'>المحادثة</Button>
+    </ButtonGroup>
+    <Box
+          sx={{
+            '& > :not(style)': {
+              m: 2,
+            },
+          }}
+        >
+        
+        </Box>     
+    
+
             <div className="profile__main__links">
                 <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                     <AccordionSummary
@@ -71,7 +133,23 @@ function Profile() {
                     </AccordionDetails>
                 </Accordion>
             </div>
-        </div>
+            <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+</ButtonGroup>
+<Box
+      sx={{
+        '& > :not(style)': {
+          m: 2,
+        },
+      }}
+    >
+    
+      <MapsHomeWorkIcon sx={{ fontSize: 40 }} />
+      <LaptopIcon  sx={{ fontSize: 40 }}/>
+      <MessageIcon  sx={{ fontSize: 40 }}/>
+      <PersonIcon  sx={{ fontSize: 40 }}/>
+     
+    </Box> 
+            </div>
     )
 }
 export default Profile
