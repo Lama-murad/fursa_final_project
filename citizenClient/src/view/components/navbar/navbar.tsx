@@ -17,7 +17,7 @@ function Navbar() {
     const [value, setValue] = React.useState(0);
     const navigate = useNavigate();
     return (
-        <Paper sx={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 500 }} elevation={3}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 500 }} elevation={3}>
 
             <BottomNavigation
                 showLabels
