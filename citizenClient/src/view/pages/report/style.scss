@@ -22,16 +22,22 @@
 	}
 }
 .profile__main .headingInfo{
-	margin-right: 50px;
+	margin-right: 40px;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
 	
 }
+
 .chatInfo{
 	background-color: #8CBB46 !important;
-	padding-left: 100px !important;
-	padding-right: 100px !important;
-	margin-top: 30px !important;
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+	margin-top: 20px !important;
+	margin-right: 20px !important;
 	color: #fff !important;
-	font-size: 24px !important;
+	font-size: 15px !important;
+	width: 11rem;
 }
 .buttonGroup{
 	background-color: transparent !important;
