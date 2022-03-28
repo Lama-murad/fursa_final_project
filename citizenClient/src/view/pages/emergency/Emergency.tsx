@@ -114,63 +114,58 @@ export function Emergency() {
 
       <div className="accident_body">
         <form onSubmit={newAccidentHandler}>
-          <Box
-            component="form"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '15ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField
-              style={{ width: "100%", borderColor: "eb655", color: "#eb655b" }}
-              select
-              name="type"
-              label="اختار نوع الحدث"
-              value={type}
-              onChange={handleChange}>
-              {accidentType.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              name="location"
-              id="standard-size-normal"
-              defaultValue="موقع"
-              variant="standard"
-            />
-            <TextField
-              name="description"
-              id="standard-size-normal"
-              defaultValue="وصف الحالة"
-              variant="standard"
+          <TextField
+            style={{ width: "100%", borderColor: "eb655", color: "#eb655b" }}
+            select
+            name="type"
+            label="اختار نوع الحدث"
+            value={type}
+            onChange={handleChange}>
+            {accidentType.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            name="location"
+            id="standard-size-normal"
+            defaultValue="موقع"
+            variant="standard"
+            sx={{ marginTop: "1rem" }}
+          />
+          <TextField
+            fullWidth
+            name="description"
+            id="standard-size-normal"
+            defaultValue="وصف الحالة"
+            variant="standard"
 
-            />
-            {upload ? (
-              <input
-                style={{ borderColor: "#eb655", color: "#eb655b" }}
-                type="file"
-                onChange={selectfileHandler}></input>
-            ) : (
-              <Button
-                startIcon={<UploadIcon></UploadIcon>}
-                onClick={handleUpload}
-                style={{ width: "100%", borderColor: "black", color: "black" }}
-                variant="outlined">
-                تحميل الصورة
-              </Button>
-            )}
-          </Box>
+          />
+          {upload ? (
+            <input
+              style={{ borderColor: "#eb655", color: "#eb655b" }}
+              type="file"
+              onChange={selectfileHandler}></input>
+          ) : (
+            <Button
+              fullWidth
+              startIcon={<UploadIcon></UploadIcon>}
+              onClick={handleUpload}
+              style={{ width: "100%", borderColor: "black", color: "black" }}
+              variant="outlined">
+              تحميل الصورة
+            </Button>
+          )}
 
-          <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
+          <ButtonGroup fullWidth className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
 
             <Button className='reportInfo' style={{ width: "100%" }}>تقديم تقرير </Button>
           </ButtonGroup>
 
         </form>
       </div>
-    </div>
+    </div >
   );
 }
