@@ -3,11 +3,17 @@ import socketIOClient, { Socket } from "socket.io-client";
 import Navbar from "../../components/navbar/navbar";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import "./Chat.scss";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
+import {getID} from '../../../app/reducer/userReducer'
 
-const ENDPOINT = "http://localhost:3001/";
+
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 function Chat() {
+  const chatRoomId = useParams().chatId;
+  const userId = useAppSelector(getID);
+console.log('saaaaa', userId)
   /* previose page should pass
   accedent id,orgid
 
@@ -26,72 +32,87 @@ function Chat() {
     accidentId: String;
     orgId: String;
   }
-  let userId = "2";
+ 
   let orgId = "3";
 
   const [messages, setMessages] = useState({});
 
   useEffect(() => {
-    socket = socketIOClient(ENDPOINT);
+    socket = socketIOClient();
+    socket.on("connect", () => {
+      console.log("connecting?",userId,'dd');
+      //before join room, tell other that he joined
+      socket.emit('enter chat',{userId, orgId})
+      socket.emit("join room", chatRoomId);
 
-    /* will be replace with chat box*/
-    socket.on("FromAPI", (data: React.SetStateAction<string>) => {
-      //setResponse(data);
-      setMessages(data);
     });
-    /* set user id */
-    socket.emit("setUserData", userId);
-    /* set user id */
-    socket.emit("setOrgData", orgId);
+
+    socket.on('message',msg=>{
+      console.log(msg) // -->add to messages on DOM
+    })
+    //get previous messages
+
+    //TODO: leave room
   }, []);
   const [value, setValue] = useState("");
-  const submitForm = (e: any) => {
-    e.preventDefault();
-    socket.emit("message", {
-      from: userId,
-      date: new Date().toLocaleString() + "",
-      type: "message",
-      video: "",
-      picture: "",
-      message: value,
-      location: { lat: "", lng: "" },
-      communicationType: "user",
-      orgId: orgId,
-    });
-    setValue("");
-  };
-  return (
-    <div className="chatPage">
-      <Navbar />
+  try {
+    if (!chatRoomId) throw new Error("no chat id in params");
 
-      <div className="chatContainer">
-        <div className="wrapper">
-          {Object.entries(messages).map(function (val: any, index) {
-            const new_message: messageFormat = val["1"];
-            {
+    const submitForm = (e: any) => {
+      e.preventDefault();
+      console.log(value)
+      socket.emit("message", {
+        from: userId,
+        date: new Date().toLocaleString() + "",
+        type: "message",
+        video: "",
+        picture: "",
+        message: value,
+        location: { lat: "", lng: "" },
+        communicationType: "user",
+        orgId: orgId,
+      });
+      setValue("");
+    };
+    return (
+      <div className="chatPage">
+        <Navbar />
 
-              if (new_message.from == userId)
-                return <div className="you message">{new_message.message}</div>
-              else
-                return <div className="them message">{new_message.message}</div>
-
-            }
-          })}
+        <div className="chatContainer">
+          <div className="wrapper">
+            {Object.entries(messages).map(function (val: any, index) {
+              const new_message: messageFormat = val["1"];
+              // eslint-disable-next-line no-lone-blocks
+              {
+                if (new_message.from === userId)
+                  return (
+                    <div className="you message">{new_message.message}</div>
+                  );
+                else
+                  return (
+                    <div className="them message">{new_message.message}</div>
+                  );
+              }
+            })}
+          </div>
+          <form onSubmit={submitForm}>
+            <input
+              autoFocus
+              value={value}
+              placeholder="Type your message"
+              onChange={(e) => {
+                setValue(e.currentTarget.value);
+              }}
+            />
+            <input type='submit' value='send'></input>
+          </form>
         </div>
-        <form onSubmit={submitForm}>
-          <input
-            autoFocus
-            value={value}
-            placeholder="Type your message"
-            onChange={(e) => {
-              setValue(e.currentTarget.value);
-            }}
-          />
-
-        </form>
       </div>
-    </div>
-  );
+    );
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }
 
 export default Chat;

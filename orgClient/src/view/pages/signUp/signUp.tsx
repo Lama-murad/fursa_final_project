@@ -71,7 +71,7 @@ const SignUp = () => {
                         component="div"
                         align='center'
                     >
-                        <Link to='/login'>لديك حساب؟ تسجيل الدخول هنا</Link>
+                        <Link to='/'>لديك حساب؟ تسجيل الدخول هنا</Link>
                     </Typography>
                 </div>
 
