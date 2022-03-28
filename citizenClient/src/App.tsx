@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
 import { authenticate } from "./app/reducer/userReducer";
 import ChatRooms from './view/pages/chatRoams/chatRooms'
+import Report from "./view/pages/report/Report";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -33,6 +34,7 @@ function App() {
         <Route path="/emergency/:accidentName" element={<Emergency />}></Route>
         <Route path="/previousAccidents" element={<PreviousAccident />} />
         <Route path="/chatRoams" element={<ChatRooms />} />
+        <Route path="/report" element={<Report />} />
 
       </Routes>
     </Router>

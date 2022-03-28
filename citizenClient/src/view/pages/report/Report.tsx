@@ -18,10 +18,10 @@ const  Report = () => {
 
   return (
     <div className="profile__main">
-  
-      <ChevronLeftIcon  sx={{ fontSize: 40 }}/>
-      <h3 className='headingInfo'>report accident</h3>
-    
+      
+      {/* <ChevronLeftIcon  sx={{ fontSize: 40 }}/> */}
+      <h3 className='headingInfo'> report accident <ChevronLeftIcon  sx={{ fontSize: 30 }}/></h3>
+   
     <Box
       component="form"
       sx={{
@@ -43,7 +43,7 @@ const  Report = () => {
         <TextField
           
           id="standard-size-normal"
-          defaultValue="location"
+          defaultValue="موقع"
           variant="standard"
         />
         
@@ -52,7 +52,7 @@ const  Report = () => {
         <TextField
           
           id="standard-size-normal"
-          defaultValue="description"
+          defaultValue="وصف الحالة"
           variant="standard"
          
         />
@@ -61,7 +61,7 @@ const  Report = () => {
       <div>
         <TextField
           id="standard-size-normal"
-          defaultValue="attach image "
+          defaultValue="إرفاق الصورة "
           variant="standard"
          
         />
@@ -73,7 +73,7 @@ const  Report = () => {
 
   <Button  className='chatInfo'>REPORT A CASE</Button>
 </ButtonGroup>
-<Box
+{/* <Box
       sx={{
         '& > :not(style)': {
           m: 2,
@@ -86,7 +86,7 @@ const  Report = () => {
       <MessageIcon  sx={{ fontSize: 40 }}/>
       <PersonIcon  sx={{ fontSize: 40 }}/>
      
-    </Box>
+    </Box> */}
 
     </div>
 

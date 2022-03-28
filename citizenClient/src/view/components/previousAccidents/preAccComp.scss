@@ -1,39 +1,21 @@
 .AccidentCompContainer {
-    border: 1px solid black;
+    border: 1px solid #8CBB46;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: column-reverse;
     // align-items: center;
-    border-radius: 0px;
-    align-content: center;
-    width: 80%;
-    padding: 20px;
-    margin: 20px;
-    margin-left: 110px;
-    background-color: rgba(113, 168, 184, 0.61);
+    border-radius: 10px;
+    width: 100%;
+    height: 80px;
+    align-items: flex-end;
+    background-color: #8CBB46;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    
 
-    .type {
-
-    }
-
-    .date {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 55%;
-        height: 100%;
-        padding: 5px;
-
-        .targetName {
-            font-weight: bolder;
-            font-size: larger;
-        }
-
-        .accidentDetails_details {
-            font-weight: 400;
-        }
-    }
-
-    .address {
-
+    span{
+        text-decoration: underline;
+        font-weight: bold;
     }
 }

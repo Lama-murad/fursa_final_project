@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { signUpUser, getloginState } from '../../../app/reducer/userReducer'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 function SignUp() {
     const [sigupState, setSigupnState] = useState({})
@@ -35,6 +36,7 @@ function SignUp() {
     }
     return (
         <div className="signup">
+            <PeopleAltIcon  sx={{ fontSize: 40 }}/>
             <NavBar></NavBar>
             <div className="signup__main">
                 <div className="signup__main__title">
@@ -65,6 +67,7 @@ function SignUp() {
                             </Select>
                         </FormControl>
                         <Button variant="contained" style={{ marginTop: '1rem' }} type="submit">تسجيل</Button>
+                        
                     </form>
                 </div>
             </div>

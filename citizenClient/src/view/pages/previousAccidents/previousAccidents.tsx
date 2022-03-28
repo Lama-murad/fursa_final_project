@@ -16,7 +16,7 @@ function PreviousAccident() {
   const user = useAppSelector(userInfo)
   const preAccidents = useAppSelector(getAccident)
   const status = useAppSelector(getStatus)
-  const email = user.email;
+  const email = 'm.zmiro@hotmail.com';//user.email;//
 
   useEffect(() => {
     dispatch(fetchPreviousAccident({ "email": email }));
@@ -39,16 +39,16 @@ function PreviousAccident() {
   //   }, []);
   return (
     <div className='AccidentContainer'>
-      <Navbar />
-      <p className="title"> your previous accidents</p>
-      {/* <button onClick={handleGetAccident}> get previous accidents </button> */}
+      <h2>Your Previous Accidents</h2>
       <div className="description">
-        {status === 'loading' ? <div>Loading...</div> : preAccidents.map((accident: any, index: any) => {
+        {status === 'loading' ? <div className='loading'>Loading...</div> : preAccidents.map((accident: any, index: any) => {
           return (
             <AccidentComp key={index} type={accident.type} date={accident.date} address={accident.address} />
           );
         })}
       </div>
+      <button className='chat'>Chat</button>
+      <Navbar />
     </div>
   )
 
