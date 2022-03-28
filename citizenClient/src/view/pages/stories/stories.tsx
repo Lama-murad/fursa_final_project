@@ -19,17 +19,19 @@ function Stories() {
     }]
 
     return (
-        <div className='stories'>
+        <div>
             <Navbar />
-            <div className='stories__container'>
-                <div className="stories__container__title">Success Stories</div>
-                <div className="stories__container__grid">
-                    {stories.map((story, index) => {
-                        return <StoriesComp key={index} name={story.name} description={story.description}></StoriesComp>
-                    })}
+            <div className='stories'>
+                <div className='stories__container'>
+                    <div className="stories__container__title">Success Stories</div>
+                    <div className="stories__container__grid">
+                        {stories.map((story, index) => {
+                            return <StoriesComp key={index} name={story.name} description={story.description}></StoriesComp>
+                        })}
+                    </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </div>
     )
 
 }
