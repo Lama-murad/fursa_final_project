@@ -79,15 +79,15 @@ export function Emergency() {
     formData.append("file", images[0]);
     formData.append("api_key", "327772261325556");
     formData.append("upload_preset", "tfv02nzm");
-    formData.append("public_id", "sample_image2");
+    formData.append("public_id", "sample_image4");
     formData.append("timestamp", `${new Date().getTime()}`);
 
     const { data } = await axios.post(
       "https://api.cloudinary.com/v1_1/dqzgolqdg/image/upload",
       formData
     );
-    setImageUrl(data.secure_url);
-
+    console.log(data)
+    setImageUrl({imageUrl:data.secure_url,imagetype:data.resource_type})
     //fetch media
     axios
       .post("http://localhost:3001/accidents/addNewAccident", {
@@ -96,7 +96,7 @@ export function Emergency() {
         date: new Date(),
         address: ev.target.elements.location.value,
         description: ev.target.elements.description.value,
-        media: imageUrl,
+        media: [{src:imageUrl,type:imagetype}],
         user: user,
         org: {},
       })
@@ -170,7 +170,7 @@ export function Emergency() {
           
 <ButtonGroup className='buttonGroup' variant="outlined" aria-label="outlined primary button group">
 
-<Button  className='chatInfo'>تقرير  </Button>
+<Button  type='submit' className='chatInfo'>تقرير  </Button>
 </ButtonGroup>
 <Box
       sx={{
